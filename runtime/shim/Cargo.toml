@@ -8,7 +8,11 @@ name = "containerd-shim-containerd-hybrid"
 path = "src/main.rs"
 
 [dependencies]
-containerd-shim = "0.7.0"
+# Pin to exact 0.7.0 because later 0.7.x releases introduce a type error when
+# building with aarch64-unknown-linux-musl due to stricter trait bounds. Using
+# an exact version avoids pulling in the newer, incompatible releases pulled in
+# by the default caret (^) requirement specifier.
+containerd-shim = "=0.7.0"
 log = "0.4.20"
 tokio = { version = "1.38.0", features = ["full"] }
 clap = { version = "4.4.11", features = ["derive"]}
